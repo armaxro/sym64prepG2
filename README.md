@@ -6,7 +6,7 @@
 
 ## Base du projet
 
-On redémarre le projet en récupérant les fichiers suivants du dossier :
+On redémarre le projet en récupérant les fichiers suivants du dossier (vous ne devrez pas le faire dans le TI) :
 
 https://github.com/WebDevCF2m2023/exeSymG2
 
@@ -25,7 +25,8 @@ https://github.com/WebDevCF2m2023/exeSymG2
 
 ### Modification du `.env`
 
-```dotenv
+```env
+# .env
 # ...
 # Variables pour Docker A METTRE DANS le .env.local !!!
 DB_TYPE="mysql"
@@ -40,6 +41,9 @@ DATABASE_URL="${DB_TYPE}://${DB_USER}:${DB_PWD}@${DB_HOST}:${DB_PORT}/${DB_NAME}
 # ...
 ```
 
+### Création d'un contrôleur pour les principales vues publiques
+
+    php bin/console make:controller MainController
 
 ### Modification des entités
 
