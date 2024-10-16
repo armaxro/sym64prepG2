@@ -22,3 +22,24 @@ https://github.com/WebDevCF2m2023/exeSymG2
 - src/Repository/TagRepository.php
 - src/Repository/UserRepository.php
 - templates/security/
+
+### Modification du `.env`
+
+```dotenv
+# ...
+# Variables pour Docker A METTRE DANS le .env.local !!!
+DB_TYPE="mysql"
+DB_NAME="sym64prepg2"
+DB_HOST="localhost"
+DB_PORT=3306
+DB_USER="root"
+DB_PWD=""
+DB_CHARSET="utf8mb4"
+
+DATABASE_URL="${DB_TYPE}://${DB_USER}:${DB_PWD}@${DB_HOST}:${DB_PORT}/${DB_NAME}?charset=${DB_CHARSET}"
+# ...
+```
+
+
+### Modification des entités
+
