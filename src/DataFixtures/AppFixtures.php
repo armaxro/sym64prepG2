@@ -29,6 +29,8 @@ use App\Entity\Post;
 use App\Entity\Section;
 # Entité Comment
 use App\Entity\Comment;
+# Entité Tag
+use App\Entity\Tag;
 
 # chargement du hacher de mots de passe
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -37,6 +39,9 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 # pour utiliser Faker plutôt que Factory
 # comme nom de classe
 use Faker\Factory AS Faker;
+
+# chargement de slugify
+use Cocur\Slugify\Slugify;
 
 class AppFixtures extends Fixture
 {
@@ -51,6 +56,8 @@ class AppFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
+        $faker = Faker::create('fr_FR');
+        $slugify = new Slugify();
 
         ###
         #
@@ -63,6 +70,10 @@ class AppFixtures extends Fixture
         // création de l'administrateur via les setters
         $user->setUsername('admin');
         $user->setRoles(['ROLE_ADMIN']);
+        $user->setUserEmail('michael.pitz@cf2m.be');
+        $user->setUserFullName("Pitz Michaël");
+        $user->setUserActive(true);
+        $user->setUserUniqueKey(uniqid('user_', true));
         // on va hacher le mot de passe
         $pwdHash = $this->hasher->hashPassword($user, 'admin');
         // passage du mot de passe crypté
@@ -87,6 +98,10 @@ class AppFixtures extends Fixture
             // username de : user0 à user10
             $user->setUsername('user'.$i);
             $user->setRoles(['ROLE_USER']);
+            $user->setUserEmail($faker->email());
+            $user->setUserFullName($faker->name());
+            $user->setUserActive(true);
+            $user->setUserUniqueKey(uniqid('user_', true));
             // hashage du mot de passe de : user0 à user10
             $pwdHash = $this->hasher->hashPassword($user, 'user'.$i);
             $user->setPassword($pwdHash);
@@ -96,11 +111,6 @@ class AppFixtures extends Fixture
             $manager->persist($user);
         }
 
-        //dd($users);
-
-        // Appel de faker avec la locale en français
-        // de France
-        $faker = Faker::create('fr_FR');
 
         ###
         #   POST
@@ -113,7 +123,7 @@ class AppFixtures extends Fixture
             // on prend une clef d'un User
             // créé au-dessus
             $keyUser = array_rand($users);
-            // on ajoutel'utilisateur
+            // on ajoute l'utilisateur
             // à ce post
             $post->setUser($users[$keyUser]);
             // date de création (il y a 30 jours)
@@ -129,6 +139,8 @@ class AppFixtures extends Fixture
             $title = $faker->words(mt_rand(2,5),true);
             // utilisation du titre avec le premier mot en majuscule
             $post->setPostTitle(ucfirst($title));
+            // on va slugifier le title
+            $post->setPostSlug($slugify->slugify($title));
 
             // création d'un texte entre 3 et 6 paragraphes
             $texte = $faker->paragraphs(mt_rand(3,6), true);
@@ -153,9 +165,12 @@ class AppFixtures extends Fixture
             $section = new Section();
             // création d'un titre entre 2 et 5 mots
             $title = $faker->words(mt_rand(2,5),true);
+            // titre
             $section->setSectionTitle(ucfirst($title));
+            // on slugifie le titre
+            $section->setSectionSlug($slugify->slugify($title));
             // création d'une description de maximum 500 caractères
-            // en pseudo français di fr_FR
+            // en pseudo français du fr_FR
             $description = $faker->realText(mt_rand(150,500));
             $section->setSectionDescription($description);
 
