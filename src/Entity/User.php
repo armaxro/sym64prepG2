@@ -49,6 +49,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'user')]
     private Collection $comments;
 
+    #[ORM\Column(
+        length: 160,
+        unique: true)]
+    private ?string $userEmail = null;
+
+    #[ORM\Column(
+        type: 'boolean',
+        options: ['default' => false]
+    )]
+    private ?bool $userActive = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $userUniqueKey = null;
+
+    #[ORM\Column(length: 200, nullable: true)]
+    private ?string $userFullName = null;
+
     public function __construct()
     {
         $this->posts = new ArrayCollection();
@@ -186,6 +203,54 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $comment->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUserEmail(): ?string
+    {
+        return $this->userEmail;
+    }
+
+    public function setUserEmail(string $userEmail): static
+    {
+        $this->userEmail = $userEmail;
+
+        return $this;
+    }
+
+    public function isUserActive(): ?bool
+    {
+        return $this->userActive;
+    }
+
+    public function setUserActive(bool $userActive): static
+    {
+        $this->userActive = $userActive;
+
+        return $this;
+    }
+
+    public function getUserUniqueKey(): ?string
+    {
+        return $this->userUniqueKey;
+    }
+
+    public function setUserUniqueKey(string $userUniqueKey): static
+    {
+        $this->userUniqueKey = $userUniqueKey;
+
+        return $this;
+    }
+
+    public function getUserFullName(): ?string
+    {
+        return $this->userFullName;
+    }
+
+    public function setUserFullName(?string $userFullName): static
+    {
+        $this->userFullName = $userFullName;
 
         return $this;
     }

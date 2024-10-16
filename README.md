@@ -83,6 +83,43 @@ On veut ajouter des champs :
 - userEmail string 160 NOT NULL
 - userActive boolean default: false NOT NULL
 - userUniqueKey string 255 NOT NULL
+- userFullName string 200 NULL
+
+
+    php bin/console make:entity User
+
+Ce qui va modifier notre fichier :
+
+```php
+// src/Entity/User.php
+# ....
+   // #[ORM\Column(length: 160)]
+   // private ?string $userEmail = null;
+   // en
+   #[ORM\Column(
+        length: 160,
+        unique: true)]
+    private ?string $userEmail = null;
+    
+   // #[ORM\Column]
+   // private ?bool $userActive = null;
+   // en
+   #[ORM\Column(
+        type: 'boolean',
+        options: ['default' => false]
+    )]
+    private ?bool $userActive = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $userUniqueKey = null;
+    
+    #[ORM\Column(length: 200, nullable: true)]
+    private ?string $userFullName = null;
+    
+    
+# ....
+```
+    
 
 
 
