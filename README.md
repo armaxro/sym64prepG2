@@ -174,3 +174,12 @@ Puis création d'une migration :
 Exécution de la migration :
 
     php bin/console d:m:m
+
+### Créez les `Fixtures`
+
+    composer require --dev orm-fixtures
+
+    php bin/console make:fixtures
+
+Ouvrez le fichier `src/DataFixtures/AppFixtures.php`
+
