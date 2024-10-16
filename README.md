@@ -88,7 +88,7 @@ On veut ajouter des champs :
 
     php bin/console make:entity User
 
-Ce qui va modifier notre fichier :
+On va modifier notre fichier :
 
 ```php
 // src/Entity/User.php
@@ -119,7 +119,58 @@ Ce qui va modifier notre fichier :
     
 # ....
 ```
-    
 
+#### Section
 
+On veut ajouter le champ :
 
+- sectionSlug string 162 NOT NULL UNIQUE
+
+        php bin/console make:entity Section
+
+On va modifier notre fichier :
+
+```php
+// src/Entity/Section.php
+# ...
+   // #[ORM\Column(length: 162)]
+   // private ?string $sectionSlug = null;
+   // en 
+   #[ORM\Column(
+        length: 162,
+        unique: true,
+    )]
+    private ?string $sectionSlug = null;
+# ...
+```
+
+#### Post
+
+On veut ajouter le champ :
+
+- postSlug string 162 NOT NULL UNIQUE
+
+      php bin/console make:entity Post
+
+```php
+// src/Entity/Post.php
+# ....
+  // #[ORM\Column(length: 162)]
+  //   private ?string $postSlug = null;
+  // en
+  #[ORM\Column(
+        length: 162,
+        unique: true,
+    )]
+    private ?string $postSlug = null;
+```
+
+On va mettre à jour notre DB :
+
+Puis création d'une migration :
+
+    php bin/console ma:mi
+
+Exécution de la migration :
+
+    php bin/console d:m:m

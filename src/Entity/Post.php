@@ -1,4 +1,5 @@
 <?php
+// src/Entity/Post.php
 
 namespace App\Entity;
 
@@ -67,6 +68,12 @@ class Post
     #[ORM\ManyToOne(inversedBy: 'posts')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
+
+    #[ORM\Column(
+        length: 162,
+        unique: true,
+    )]
+    private ?string $postSlug = null;
 
     public function __construct()
     {
@@ -226,6 +233,18 @@ class Post
     public function setUser(?User $user): static
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getPostSlug(): ?string
+    {
+        return $this->postSlug;
+    }
+
+    public function setPostSlug(string $postSlug): static
+    {
+        $this->postSlug = $postSlug;
 
         return $this;
     }
