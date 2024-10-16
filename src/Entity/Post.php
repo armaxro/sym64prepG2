@@ -1,4 +1,5 @@
 <?php
+// src/Entity/Post.php
 
 namespace App\Entity;
 
@@ -68,8 +69,16 @@ class Post
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
+<<<<<<< HEAD
     #[ORM\Column(length: 162)]
     private ?string $postslug = null;
+=======
+    #[ORM\Column(
+        length: 162,
+        unique: true,
+    )]
+    private ?string $postSlug = null;
+>>>>>>> 840013f8f4fa53d037e55b2ba969647bb0171942
 
     public function __construct()
     {
@@ -233,6 +242,7 @@ class Post
         return $this;
     }
 
+<<<<<<< HEAD
     public function getPostslug(): ?string
     {
         return $this->postslug;
@@ -241,6 +251,16 @@ class Post
     public function setPostslug(string $postslug): static
     {
         $this->postslug = $postslug;
+=======
+    public function getPostSlug(): ?string
+    {
+        return $this->postSlug;
+    }
+
+    public function setPostSlug(string $postSlug): static
+    {
+        $this->postSlug = $postSlug;
+>>>>>>> 840013f8f4fa53d037e55b2ba969647bb0171942
 
         return $this;
     }

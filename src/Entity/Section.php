@@ -1,4 +1,5 @@
 <?php
+// src/Entity/Section.php
 
 namespace App\Entity;
 
@@ -31,6 +32,12 @@ class Section
      */
     #[ORM\ManyToMany(targetEntity: Post::class, mappedBy: 'sections')]
     private Collection $posts;
+
+    #[ORM\Column(
+        length: 162,
+        unique: true,
+    )]
+    private ?string $sectionSlug = null;
 
     public function __construct()
     {
@@ -89,6 +96,18 @@ class Section
         if ($this->posts->removeElement($post)) {
             $post->removeSection($this);
         }
+
+        return $this;
+    }
+
+    public function getSectionSlug(): ?string
+    {
+        return $this->sectionSlug;
+    }
+
+    public function setSectionSlug(string $sectionSlug): static
+    {
+        $this->sectionSlug = $sectionSlug;
 
         return $this;
     }
