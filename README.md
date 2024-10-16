@@ -45,5 +45,44 @@ DATABASE_URL="${DB_TYPE}://${DB_USER}:${DB_PWD}@${DB_HOST}:${DB_PORT}/${DB_NAME}
 
     php bin/console make:controller MainController
 
+Dans `src/Controller/MainController.php` on modifie le nom et la route :
+
+```php
+class MainController extends AbstractController
+{
+    #[Route('/', name: 'homepage')]
+    public function index(): Response
+    {
+        return $this->render('main/index.html.twig', [
+            'controller_name' => 'MainController',
+        ]);
+    }
+}
+```
+
+### Création de la database
+
+Ouvrez Wamp si non `dockerisé`
+
+    php bin/console d:d:c
+
+Puis création d'une première migration :
+
+    php bin/console ma:mi
+
+Exécution de la migration :
+
+    php bin/console d:m:m
+
 ### Modification des entités
+
+#### User
+
+On veut ajouter des champs :
+
+- userEmail string 160 NOT NULL
+- userActive boolean default: false NOT NULL
+- userUniqueKey string 255 NOT NULL
+
+
 
