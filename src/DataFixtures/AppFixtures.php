@@ -1,14 +1,14 @@
 <?php
-<<<<<<< HEAD
-=======
+
+
 // src/DataFixtures/AppFixtures.php
->>>>>>> 840013f8f4fa53d037e55b2ba969647bb0171942
+
 
 namespace App\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
-<<<<<<< HEAD
+
 
 class AppFixtures extends Fixture
 {
@@ -20,7 +20,7 @@ class AppFixtures extends Fixture
         $manager->flush();
     }
 }
-=======
+
 # Entité User
 use App\Entity\User;
 # Entité Post
@@ -213,4 +213,4 @@ class AppFixtures extends Fixture
         $manager->flush();
     }
 }
->>>>>>> 840013f8f4fa53d037e55b2ba969647bb0171942
+
